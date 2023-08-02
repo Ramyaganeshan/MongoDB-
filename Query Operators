@@ -1,0 +1,122 @@
+Comparison Operators:
+$eq: Matches values that are equal to the specified value.
+$ne: Matches values that are not equal to the specified value.
+$gt: Matches values greater than the specified value.
+$gte: Matches values greater than or equal to the specified value.
+$lt: Matches values less than the specified value.
+$lte: Matches values less than or equal to the specified value.
+$in: Matches any of the values specified in an array.
+$nin: Matches none of the values specified in an array.
+Exmple:
+$in: Find students with marks 90 or 95.
+db.students.find({ marks: { $in: [90, 95] } });
+
+
+Logical Operators:
+$and: Joins query clauses with a logical AND and returns documents that match all the conditions.
+$or: Joins query clauses with a logical OR and returns documents that match at least one of the conditions.
+$not: Inverts the result of a query expression.
+$nor: Joins query clauses with a logical NOR and returns documents that fail to match all the conditions.
+
+$and:
+The $and operator combines multiple query clauses with a logical AND.
+It returns documents that match all the conditions specified in the query clauses.
+Example: Find products with a price less than 800 and are in stock (in_stock: true).
+db.products.find({ $and: [{ price: { $lt: 800 } }, { in_stock: true }] });
+
+$or:
+The $or operator combines multiple query clauses with a logical OR.
+It returns documents that match at least one of the conditions specified in the query clauses.
+Example: Find products with a price less than 400 or are in stock (in_stock: true).
+db.products.find({ $or: [{ price: { $lt: 400 } }, { in_stock: true }] });
+
+$not:
+The $not operator inverts the result of a query expression.
+It returns documents that do not match the specified condition.
+Example: Find products that are not in stock (in_stock: false).
+db.products.find({ in_stock: { $not: { $eq: true } } });
+
+$nor:
+The $nor operator combines multiple query clauses with a logical NOR. 
+It returns documents that fail to match all the conditions specified in the query clauses.
+Example: Find products that have a price greater than or equal to 800 and are not in stock (in_stock: false).
+db.products.find({ $nor: [{ price: { $lt: 800 } }, { in_stock: true }] });
+
+
+Element Operators:
+$exists: Matches documents that contain the specified field.
+$type: Matches documents where the value of a field is of a specific BSON data type.
+
+$exists:
+The $exists operator is used to match documents that contain a specific field,
+regardless of its value.
+Example: Find employees who have the "salary" field.
+db.employees.find({ salary: { $exists: true } });
+
+$text:
+Double: 1
+String: 2
+Object: 3
+Array: 4
+Boolean: 8
+Date: 9
+Null: 10
+32-bit Integer: 16
+64-bit Integer: 18
+For example, if you want to find documents that have a field named 
+"age" with data type of 32-bit integer, you can use the $type operator like this:
+db.collection.find({ age: { $type: 16 } });
+
+Similarly, if you want to find documents that have a field named "is_active" 
+with data type of boolean, you can use the $type operator like this:
+db.collection.find({ is_active: { $type: 8 } });
+
+Array Operators:
+$all: Matches arrays that contain all the specified elements.
+$elemMatch: Matches documents that contain an array with at least one element that matches all the specified criteria.
+$size: Matches arrays with a specific number of elements.
+
+$all:
+The $all operator is used to match documents where an array field contains all the specified elements.
+Example: Find books that have both "Author A" and "Author C" as authors.
+db.books.find({ authors: { $all: ["Author A", "Author C"] } });
+
+$elemMatch:
+The $elemMatch operator is used to match documents that contain an array 
+with at least one element that matches all the specified criteria.
+Example: Find books that have at least one rating greater than 4.
+db.books.find({ ratings: { $elemMatch: { $gt: 4 } } });
+
+$size:
+The $size operator is used to match arrays with a specific number of elements.
+Example: Find books that have exactly three authors.
+db.books.find({ authors: { $size: 3 } });
+
+
+Text Operators:
+$text: Performs full-text search on a text index.
+
+
+Geospatial Operators:
+$geoWithin: Matches documents that are within a specified geometry.
+$geoIntersects: Matches documents that intersect a specified geometry.
+$near: Returns documents that are near a specified point.
+
+
+Array Update Operators:
+$push: Adds an element to an array.
+$pull: Removes all occurrences of a value from an array.
+$addToSet: Adds an element to an array only if it does not already exist.
+
+
+Update Operators:
+$set: Sets the value of a field in an update operation.
+$unset: Removes a field from a document.
+$inc: Increments the value of a field by a specified amount.
+$rename: Renames a field.
+
+
+These are just some of the commonly used query operators in MongoDB.
+MongoDB provides a rich set of operators to perform various operations 
+and queries on the data in a flexible and powerful way. By using these operators,
+you can construct complex and precise queries to retrieve and manipulate documents in your MongoDB collections.
